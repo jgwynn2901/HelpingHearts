@@ -24,13 +24,15 @@
       @RenderBody()
     </div>
     <div data-role="footer" data-position="fixed" class="navgroup">
-    <div data-role="controlgroup" data-type="horizontal">
-      <a href="#" data-role="button">Visit Website</a>
-      <a href="~/Home/Contact" data-role="button">Contact Us</a>
+      <div data-role="controlgroup" data-type="horizontal">
+@* ReSharper disable Html.PathError *@
+        <a href="http://helpinghearts.ie/" data-role="button">Visit Website</a>
+        <a href="http://helpinghearts.ie/?page_id=29" data-role="button">Contact Us</a>
+@* ReSharper restore Html.PathError *@
+     </div>
     </div>
   </div>
-  </div>
-  
+
 
   @Scripts.Render("~/bundles/jquery")
   <script>
@@ -39,8 +41,9 @@
     });
   </script>
   @Scripts.Render("~/bundles/jquerymobile")
-  @RenderSection("scripts", required: false)
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-<script src="~/Scripts/map.js"></script>
+  <script src="~/Scripts/map.js"></script>
+  @RenderSection("scripts", required: false)
+
 </body>
 </html>

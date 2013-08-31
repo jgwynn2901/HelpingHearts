@@ -1,42 +1,54 @@
-﻿$(function () {
-  var map;
-  function initialize(position) {
+﻿var mapInfo = {
+  map: {},
+  initialize: function(position) {
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
     // ReSharper disable UseOfImplicitGlobalInFunctionScope
     var coords = new google.maps.LatLng(latitude, longitude);
-
+    
     var mapOptions = {
       zoom: 14,
-      center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+      center: new google.maps.LatLng(latitude, longitude),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-    map = new google.maps.Map(document.getElementById('map-canvas'),
+    var $content = $("div:jqmData(role=content)");
+    $content.height(getRealContentHeight());
+    this.map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
-
-    // ReSharper disable UnusedLocals
+    
+// ReSharper disable UnusedLocals
     var infowindow = new google.maps.InfoWindow({
-      // ReSharper restore UnusedLocals
-      map: map,
+// ReSharper restore UnusedLocals
+      map: this.map,
       position: coords,
-      content: 'You are here!'
+      content: "You are here!"
     });
-  }
-  function getLocation() {
+  },
+  getLocation: function() {
     if (Modernizr.geolocation) {
-      navigator.geolocation.getCurrentPosition(initialize, handleNoGeolocation, { timeout: 50000 });
+      navigator.geolocation.getCurrentPosition(this.initialize, this.handleNoGeolocation, { timeout: 50000 });
     }
-  }
+  },
 
-  function handleNoGeolocation(errorFlag) {
+  handleNoGeolocation: function(errorFlag) {
     if (errorFlag) {
       alert('Error: The Geolocation service failed.');
     } else {
       alert('Error: Your browser doesn\'t support geolocation.');
     }
   }
+};
+// ReSharper restore UseOfImplicitGlobalInFunctionScope
+function getRealContentHeight() {
+  var header = $.mobile.activePage.find("div[data-role='header']:visible");
+  var footer = $.mobile.activePage.find("div[data-role='footer']:visible");
+  var content = $.mobile.activePage.find("div[data-role='content']:visible:visible");
+  var viewportHeight = $(window).height();
 
-  google.maps.event.addDomListener(window, 'load', getLocation);
-  // ReSharper restore UseOfImplicitGlobalInFunctionScope
+  var contentHeight = viewportHeight - header.outerHeight() - footer.outerHeight();
+  if ((content.outerHeight() - header.outerHeight() - footer.outerHeight()) <= viewportHeight) {
+    contentHeight -= (content.outerHeight() - content.height());
+  }
+  return contentHeight;
+}
 
-});
