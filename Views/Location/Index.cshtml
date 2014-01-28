@@ -4,9 +4,14 @@
   ViewBag.Title = "Index";
 }
 
-@*<p>
-  @Html.ActionLink("Create New", "Create")
-</p>*@
+@section Header {
+  <div data-role="header" data-add-back-btn="true">
+    @Html.ActionLink("Back", "Index", "Home", null, new { data_icon = "arrow-l", data_rel = "back" })
+    <h1>@ViewBag.Title</h1>
+    @Html.ActionLink("New", "Create", "Location", null, new { data_icon = "arrow-r"})
+ </div>
+}
+
 <ul data-role="listview">
 
 

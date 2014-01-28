@@ -5,8 +5,10 @@
 }
 
 @section Header {
-    @Html.ActionLink("Back", "Index", "Home", null, new { data_icon = "arrow-l", data_rel = "back" })
-    <h1>@ViewBag.Title</h1>
+<div data-role="header" data-add-back-btn="true">
+  @Html.ActionLink("Back", "Index", "Home", null, new { data_icon = "arrow-l", data_rel = "back" })
+  <h1>@ViewBag.Title</h1>
+</div>
 }
 
 <p>

@@ -73,7 +73,7 @@ namespace HelpingHearts.Controllers
       }
       catch
       {
-        return Create();
+        return RedirectToAction("Error", "Error");
       }
     }
 

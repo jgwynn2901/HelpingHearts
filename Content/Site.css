@@ -53,4 +53,25 @@
 
 #map-canvas label { 
   width: auto; display:inline; 
-} 
+}
+
+.error_page {
+  width: 600px;
+  padding: 50px;
+  margin: auto;
+}
+
+.error_page	h1 {
+  margin: 20px 0 0;
+}
+
+.error_page p {
+  margin: 10px 0; padding: 0;
+}		
+.error_page	a {
+  color: #9caa6d; text-decoration:none;
+}
+
+.error_page a:hover {
+  color: #9caa6d; text-decoration:underline;
+}
