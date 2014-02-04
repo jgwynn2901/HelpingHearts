@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="HelpingHearts" />
+  <setParameter name="DefaultConnection-Web.config Connection String" value="Data Source=(LocalDb)\v11.0;Initial Catalog=aspnet-HelpingHearts-20130828134442;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|\aspnet-HelpingHearts-20130828134442.mdf" />
+</parameters>

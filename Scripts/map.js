@@ -1,4 +1,5 @@
-﻿var mapInfo = {
+﻿
+var mapInfo = {
   map: {},
   initialize: function(position) {
     var latitude = position.coords.latitude;
@@ -7,7 +8,7 @@
     var coords = new google.maps.LatLng(latitude, longitude);
     
     var mapOptions = {
-      zoom: 14,
+      zoom: 16,
       center: new google.maps.LatLng(latitude, longitude),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
@@ -16,14 +17,14 @@
     this.map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
     
-// ReSharper disable UnusedLocals
+    // ReSharper disable UnusedLocals
     var infowindow = new google.maps.InfoWindow({
-// ReSharper restore UnusedLocals
       map: this.map,
       position: coords,
       content: "You are here!"
     });
   },
+
   getLocation: function() {
     if (Modernizr.geolocation) {
       navigator.geolocation.getCurrentPosition(this.initialize, this.handleNoGeolocation, { timeout: 50000 });
@@ -38,6 +39,15 @@
     }
   }
 };
+
+function addMarker(address) {
+  var marker = new google.maps.Marker({
+    position: new google.maps.LatLng(address.lat, address.lon),
+    title: address.address
+  });
+  marker.setMap(mapInfo.map);
+};
+
 // ReSharper restore UseOfImplicitGlobalInFunctionScope
 function getRealContentHeight() {
   var header = $.mobile.activePage.find("div[data-role='header']:visible");
@@ -50,5 +60,5 @@ function getRealContentHeight() {
     contentHeight -= (content.outerHeight() - content.height());
   }
   return contentHeight;
-}
+};
 

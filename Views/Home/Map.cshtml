@@ -1,12 +1,20 @@
 ﻿@{
     ViewBag.Title = "Map";
 }
-<div  id="map-canvas" style="width:100%;height:100%"></div>
+@section Header {
+  <div data-role="header" data-add-back-btn="true">
+    @Html.ActionLink("Back", "Index", "Home", null, new { data_icon = "arrow-l", data_rel = "back" })
+    <h1>@ViewBag.Title</h1>
+  </div>
+}
+
+<div  id="map-canvas"></div>
 
 @section scripts {
   <script type="text/javascript">
-    $("div[data-role='page']").on("pageshow", function () {
+    $(function () {
       mapInfo.getLocation();
     });
+    
   </script>
 }

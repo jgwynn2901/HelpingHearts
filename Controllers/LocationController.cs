@@ -1,6 +1,9 @@
-﻿using System.Web.Mvc;
-using HelpingHeartsService;
-using HelpingHeartsService.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Web.Mvc;
+using LocationData;
 
 namespace HelpingHearts.Controllers
 {
@@ -11,9 +14,20 @@ namespace HelpingHearts.Controllers
 
     public ActionResult Index()
     {
-      var model = AedRepository.GetList();
+      try
+      {
+        var model = AedRepository.GetList();
 
-      return View(model);
+        return View(model);
+      }
+      catch (Exception ex)
+      {
+        var path = Path.Combine(Environment.GetFolderPath(
+          Environment.SpecialFolder.ApplicationData), "HelpingHearts.s3db");
+        var list = new List<AEdLocation> { new AEdLocation { LastName = ex.Message, FirstName = ConfigurationManager.ConnectionStrings["Locations"].ConnectionString } };
+        return View(list);
+      }
+      
     }
 
     //
