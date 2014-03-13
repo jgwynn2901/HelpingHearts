@@ -1,12 +1,12 @@
 ﻿
 var mapInfo = {
   map: {},
-  initialize: function(position) {
+  initialize: function (position) {
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
     // ReSharper disable UseOfImplicitGlobalInFunctionScope
     var coords = new google.maps.LatLng(latitude, longitude);
-    
+
     var mapOptions = {
       zoom: 16,
       center: new google.maps.LatLng(latitude, longitude),
@@ -16,37 +16,52 @@ var mapInfo = {
     $content.height(getRealContentHeight());
     this.map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
-    
-    // ReSharper disable UnusedLocals
-    var infowindow = new google.maps.InfoWindow({
-      map: this.map,
-      position: coords,
-      content: "You are here!"
-    });
+ 
+    setTimeout(setLocation(this.map, coords), 100);
+    setTimeout(getData(this.map), 1000);
+
   },
 
-  getLocation: function() {
+  getLocation: function () {
     if (Modernizr.geolocation) {
       navigator.geolocation.getCurrentPosition(this.initialize, this.handleNoGeolocation, { timeout: 50000 });
     }
   },
 
-  handleNoGeolocation: function(errorFlag) {
+  handleNoGeolocation: function (errorFlag) {
     if (errorFlag) {
       alert('Error: The Geolocation service failed.');
     } else {
       alert('Error: Your browser doesn\'t support geolocation.');
     }
-  }
+  },
 };
 
-function addMarker(address) {
-  var marker = new google.maps.Marker({
-    position: new google.maps.LatLng(address.lat, address.lon),
-    title: address.address
+function setLocation(map, coords)
+{
+  // ReSharper disable UnusedLocals
+  var infowindow = new google.maps.InfoWindow({
+    map: map,
+    position: coords,
+    content: "You are here!"
   });
-  marker.setMap(mapInfo.map);
-};
+}
+function getData(map) {
+  var uri = window.location.protocol + '//' + window.location.host + '/api/aed';
+// Send an AJAX request
+  $.getJSON(uri)
+    .done(function(data) {
+      // On success, 'data' contains a list of products.
+      $.each(data, function(key, item) {
+        // Add a list item for the product.
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(item.Latitude, item.Longitude),
+          title: item.Address,
+          map: map
+        });
+      });
+    });
+}
 
 // ReSharper restore UseOfImplicitGlobalInFunctionScope
 function getRealContentHeight() {

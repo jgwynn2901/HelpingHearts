@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Map";
+  ViewBag.Title = "Map";
 }
 @section Header {
   <div data-role="header" data-add-back-btn="true">
@@ -8,13 +8,18 @@
   </div>
 }
 
-<div  id="map-canvas"></div>
+<div id="map-canvas"></div>
 
 @section scripts {
   <script type="text/javascript">
-    $(function () {
+    $(function() {
       mapInfo.getLocation();
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(42.50497, -71.07607),
+        title: "St. Joseph's"
+      });
+      marker.setMap(mapInfo.map);
     });
-    
+  
   </script>
 }
