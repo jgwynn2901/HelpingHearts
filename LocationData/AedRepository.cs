@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Configuration;
-using System.IO;
 using System.Linq;
 
 
@@ -27,10 +26,7 @@ namespace LocationData
       var connectionString = string.Empty;
       try
       {
-        var fileName = Path.Combine(Environment.GetFolderPath(
-        Environment.SpecialFolder.ApplicationData), "HelpingHearts.s3db");
-        //connectionString = ConfigurationManager.ConnectionStrings["Locations"].ConnectionString;
-        connectionString = string.Format("Data Source={0}", fileName);
+        connectionString = ConfigurationManager.ConnectionStrings["Locations"].ConnectionString;
         var cnn = new SQLiteConnection(connectionString);
         return new Main(cnn);
 

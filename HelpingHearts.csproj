@@ -41,6 +41,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -255,9 +256,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="README.md" />
-    <Content Include="App_Data\HelpingHearts.s3db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="App_Data\HelpingHearts.s3db" />
     <None Include="Properties\PublishProfiles\HelpingHearts.pubxml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
