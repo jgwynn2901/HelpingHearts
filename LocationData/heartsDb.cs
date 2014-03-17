@@ -14,6 +14,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Data.Linq.Mapping;
 using DbLinq.Data.Linq;
+using DbLinq.Schema;
 using DbLinq.Vendor;
 
 namespace LocationData
@@ -436,6 +437,11 @@ public partial class Main
           this.OnPublicAccessChanged();
         }
       }
+    }
+
+    public string Name 
+    {
+      get { return (this.FirstName.Length > 0 ? this.FirstName + " " : "") + this.LastName; }
     }
 
     public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;

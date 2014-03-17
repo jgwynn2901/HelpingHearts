@@ -54,14 +54,26 @@ function getData(map) {
       // On success, 'data' contains a list of products.
       $.each(data, function(key, item) {
         // Add a list item for the product.
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(item.Latitude, item.Longitude),
-          title: item.Address,
-          map: map
-        });
+        createMarker(item);
       });
     });
 }
+
+function createMarker(item) {
+  var marker = new google.maps.Marker({
+    position: new google.maps.LatLng(item.Latitude, item.Longitude),
+    title: item.Address,
+    note: "<b>" + item.Name + "</b><br/>" + item.Address,
+    map: map
+  });
+  marker['infowindow'] = new google.maps.InfoWindow({
+    content: marker.note
+  });
+  google.maps.event.addListener(marker, 'click', function () {
+    this['infowindow'].open(this.getMap(), this);
+  });
+
+};
 
 // ReSharper restore UseOfImplicitGlobalInFunctionScope
 function getRealContentHeight() {
